@@ -43,7 +43,7 @@ const DashboardPage = async () => {
         <main className="p-8 flex flex-col items-center px-28 justify-center">
           <div className="mb-8 no-scrollbar w-full ">
             <h1 className="text-3xl text-center font-bold text-gray-100 mb-6">
-              Good afternoon, {session?.user.name}
+              Good afternoon, {session?.user.name as string}
             </h1>
 
             {/* Recently visited section */}
