@@ -1,6 +1,7 @@
 "use server";
 import { loginSchema } from "../schema";
 import db from "../src/lib/db";
+import { signOut } from "@/auth";
 import { getUserByEmail } from "../data/user";
 import { registerSchema } from "../schema";
 import * as z from "zod"; // Ensure this import is complete
@@ -12,7 +13,7 @@ import { redirect } from "next/navigation";
 import FormSuccess from "@/components/auth/Formsuccess";
 const login = async (values: z.infer<typeof loginSchema>) => {
   console.table(values);
-  console.table("Asd");
+
   const validatedFeilds = loginSchema.safeParse(values);
   if (!validatedFeilds.success) {
     return { error: validatedFeilds.error };
@@ -38,6 +39,18 @@ const login = async (values: z.infer<typeof loginSchema>) => {
         }
       }
     }
+    throw error;
+  }
+};
+
+export const signout = async () => {
+  "use server";
+  try {
+    await signOut({
+      redirectTo: "/",
+    });
+  } catch (error) {
+    console.error("Sign out error:", error);
     throw error;
   }
 };

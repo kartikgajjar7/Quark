@@ -1,8 +1,9 @@
+"use client";
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { auth, signOut } from "@/auth";
 import { NotebookPen } from "lucide-react";
-import { BookText } from "lucide-react";
+import { sidebar_newdoc_click } from "@/lib/utils";
 import { SidebarFootercomp } from "./sidebarfooter";
 import {
   DropdownMenu,
@@ -87,7 +88,7 @@ export async function AppSidebar() {
             <AvatarImage src={session.user.image as string} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <NotebookPen className="w-5" />
+          <NotebookPen onClick={sidebar_newdoc_click} className="w-5" />
         </SidebarContent>
       </SidebarHeader>
       <SidebarContent>
