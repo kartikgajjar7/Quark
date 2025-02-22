@@ -43,8 +43,7 @@ const login = async (values: z.infer<typeof loginSchema>) => {
   }
 };
 
-export const signout = async () => {
-  "use server";
+export const signoutserveraction = async () => {
   try {
     await signOut({
       redirectTo: "/",

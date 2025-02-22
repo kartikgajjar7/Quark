@@ -1,10 +1,13 @@
 import React from "react";
+
+import { useSession } from "next-auth/react";
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
 } from "../ui/sidebar";
+import { signoutserveraction } from "../../../actions/auth";
 import { ChevronUp } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -24,7 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 export const SidebarFootercomp = async () => {
-  const session = await auth();
+  const { data: session } = useSession();
   const firstName = session?.user?.name?.split(" ")[0] || "";
   if (session === null) return <h1>load</h1>;
   return (
@@ -39,8 +42,8 @@ export const SidebarFootercomp = async () => {
               </SidebarMenuButton>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>{session.user.name}</DropdownMenuLabel>
-              <p className="text-xs ml-2  ">{session.user.email}</p>
+              <DropdownMenuLabel>{session?.user?.name}</DropdownMenuLabel>
+              <p className="text-xs ml-2  ">{session?.user?.email}</p>
               <DropdownMenuSeparator />
 
               <DropdownMenuItem>
@@ -50,15 +53,7 @@ export const SidebarFootercomp = async () => {
 
               <DropdownMenuItem
                 onClick={async () => {
-                  "use server";
-                  try {
-                    await signOut({
-                      redirectTo: "/",
-                    });
-                  } catch (error) {
-                    console.error("Sign out error:", error);
-                    throw error;
-                  }
+                  signoutserveraction();
                 }}
               >
                 Log out

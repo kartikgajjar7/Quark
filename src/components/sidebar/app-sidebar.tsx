@@ -1,6 +1,7 @@
 "use client";
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
 import { auth, signOut } from "@/auth";
 import { NotebookPen } from "lucide-react";
 import { sidebar_newdoc_click } from "@/lib/utils";
@@ -75,8 +76,8 @@ const docsportion = [
   },
 ];
 
-export async function AppSidebar() {
-  const session = await auth();
+export function AppSidebar() {
+  const { data: session } = useSession();
   if (session === null) return <h1>load</h1>;
   if (!auth) <h1>here</h1>;
   console.log(auth, "hey");
@@ -85,7 +86,7 @@ export async function AppSidebar() {
       <SidebarHeader className="border-b border-gray">
         <SidebarContent className="flex flex-row items-center justify-between">
           <Avatar className="w-6 h-6">
-            <AvatarImage src={session.user.image as string} />
+            <AvatarImage src={session?.user?.image as string} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
           <NotebookPen onClick={sidebar_newdoc_click} className="w-5" />

@@ -1,4 +1,4 @@
-"use client";
+
 import Loginform from "@/components/auth/Signinform";
 
 export default function SignInPage() {

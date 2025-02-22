@@ -5,7 +5,6 @@ import Hero from "@/components/hero/Hero";
 import { json } from "stream/consumers";
 
 export default async function Home() {
-  const session = await auth();
   return (
     <main className=" border p-0 h-screen w-screen ">
       <Navbar />
